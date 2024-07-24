@@ -1,65 +1,68 @@
-# Fabrik Spatial App
+# 3D Model Viewer
 
-The boilerplate is almost the absolute minimum that you need to get React Three Fiber to display a Three.js scene. We will make many additions to the boilerplate as we progress with the lessons.
+This is a React application for viewing, compressing, and exporting 3D models. The application uses React Three Fiber to render 3D models and includes features for uploading, compressing, and exporting GLB files.
 
-# Create a project folder 
+## Features
 
-Open a command/terminal prompt and create a new folder on your system somewhere.
+- **Upload 3D Models**: Upload GLB files to view in the 3D scene.
+- **Compress 3D Models**: Compress the uploaded GLB files to reduce their size.
+- **Export Compressed Models**: Export the compressed GLB files.
 
-```mkdir react-three-fiber-boilerplate ```
+## Technologies Used
 
-# CD into the new folder
+- **React**: JavaScript library for building user interfaces.
+- **React Three Fiber**: React renderer for Three.js.
+- **Three.js**: JavaScript library for creating 3D graphics.
+- **FileSaver**: Library to save files on the client-side.
+- **@react-three/drei**: Collection of useful helpers for React Three Fiber.
 
-```cd react-three-fiber-boilerplate```
+## Installation
 
-# Clone the repository 
-```git clone https://github.com/fabrik-space/spatial-app-boilerplate.git```
+1. **Clone the repository:**
 
+   ```bash
+   git clone https://github.com/your-username/3d-model-viewer.git
+   cd 3d-model-viewer
+   ```
 
-# Setup development environment 
-# VSCode 
+2. **Install dependencies:**
 
-To begin, we should ensure that we've set up an IDE (Integrated Development Environment) to develop with.
-If you don't have VSCode already installed, then you can install it from - [VScode](https://code.visualstudio.com.) 
+   ```bash
+   npm install
+   ```
 
-# NodeJS
-We also need Node.js, which includes NPM, since we will be using the npm and npx commands.
-To check if Node.js is already installed, open a cmd/terminal/shell prompt and type,
+3. **Start the development server:**
 
-```node -v```
-You should get a response indicating a version number
-For example 
+   ```bash
+   npm start
+   ```
 
-```v18.14.0```
-Your version should be equal to or higher than v18.0.0.
+   The application will be available at `http://localhost:3000`.
 
-We can also check the version of NPM,
-```npm -v```
-You want to see no error, but instead a version number equal to, or higher than v8.0.0.
+## Usage
 
-# Run the app
-Once you have setup the devlopemnt environment, Open the project on VSCode. Make sure you are under the project folder if not ```cd spatial-app-boilerplate```, 
-Now open a new terminal within VScode and install all dependencies using
+1. **Upload a Model**: Click the "Upload" button and select a GLB file to upload.
+2. **Compress the Model**: After uploading, click the "Compress" button to compress the file.
+3. **Export the Compressed Model**: Once the compression is complete, click the "Export" button to download the compressed file.
 
-```npm install```
+## Project Structure
 
-To run the application with local devlopement server
-```npm run dev```
+- `src/components/Model.js`: Component for rendering the uploaded 3D model.
+- `src/components/UploadButton.js`: Component for handling file uploads.
+- `src/components/CompressButton.js`: Component for compressing the uploaded file.
+- `src/components/ExportButton.js`: Component for exporting the compressed file.
+- `src/components/Message.js`: Component for displaying messages.
+- `src/App.js`: Main application component.
+- `src/App.css`: CSS for styling the application.
 
-<img width="1429" alt="Screenshot 2024-05-16 at 12 08 53 PM" src="https://github.com/fabrik-space/spatial-app-boilerplate/assets/67771257/1a977f72-8ceb-4c37-aa75-c7e2574aee16">
+## Contributing
 
-You should be able to see a red color cube on canvas, you can interact and get started with it
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
-Within you're terminal you should see 
-```spatial-app-boilerplate git:(main)```
+## Acknowledgements
 
-Which means you're under the main branch of the project,
-Checkout from the current main branch to a new branch where you can start making changes 
-```git checkout -b "your-branch-name"```
-
-Based on the module you start, Replace "your-branch-name" with a preffered branch name and associated task for example :
-```git checkout -b "module-1/upload-model"```
-
-Once done with changes you can raise a pull request against the main branch and request review
-
-
+- [React](https://reactjs.org/)
+- [React Three Fiber](https://github.com/pmndrs/react-three-fiber)
+- [Three.js](https://threejs.org/)
+- [FileSaver.js](https://github.com/eligrey/FileSaver.js)
+- [@react-three/drei](https://github.com/pmndrs/drei)

@@ -1,57 +1,58 @@
+import React, { useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import { saveAs } from 'file-saver';
+import { Stats } from '@react-three/drei';
+import Model from './components/Model';
+import UploadButton from './components/UploadButton';
+import CompressButton from './components/CompressButton';
+import ExportButton from './components/ExportButton';
+import Message from './components/Message';
+import './App.css';
 
-import React from "react";
-import { Canvas } from "@react-three/fiber" 
-import * as THREE from 'three';
-import "./App.css";
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { useRef } from 'react'
-import { DragControls } from "@react-three/drei";
-import { OrbitControls } from "@react-three/drei";
-import { Stats } from "@react-three/drei";
-import { DRACOLoader } from "three/examples/jsm/Addons.js";
-import { positionGeometry } from "three/examples/jsm/nodes/Nodes.js";
+function App() {
+  const [file, setFile] = useState(null);
+  const [compressedFile, setCompressedFile] = useState(null);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
-function Scene() {
-  
-  const path1 = "/brick_arcs_barn_ruin-transformed.glb"
-  const path2 = "/brick_arcs_barn_ruin.glb"
-  const comp="compressed"
-  const ncomp="not compressed"
-  handleExport(path2,ncomp);
-  handleExport(path1,comp);
-  const gltf = useLoader(GLTFLoader,path1, (loader) => {
-    const dracoLoader = new DRACOLoader()
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/')
-    loader.setDRACOLoader(dracoLoader)
-  })
-  return <primitive object={gltf.scene} />
+  const handleUpload = (url) => {
+    setFile(url);
+    setMessage('File uploaded successfully!');
+  };
+
+  const handleCompress = (compressedUrl) => {
+    setCompressedFile(compressedUrl);
+    setMessage('Compression successful!');
+  };
+
+  const handleExport = () => {
+    if (compressedFile) {
+      saveAs(compressedFile, 'compressed_model.glb');
+      setMessage('Export successful!');
+    } else {
+      setError('No compressed file available for export');
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>3D Model Viewer</h1>
+      <UploadButton onUpload={handleUpload} setMessage={setMessage} setError={setError} />
+      <CompressButton file={file} onCompress={handleCompress} setMessage={setMessage} setError={setError} />
+      <ExportButton onExport={handleExport} />
+      <Message message={message} error={error} />
+      <div className="canvas-container">
+        <Canvas style={{ height: 600 }}>
+          <Stats></Stats>
+          <ambientLight />
+          <pointLight position={[10, 10, 10]} />
+          <OrbitControls />
+          {file && <Model file={file} />}
+        </Canvas>
+      </div>
+    </div>
+  );
 }
 
-
-
-export default function App() {
-  return(
-    
-    <Canvas style={{ background: "#dddddd" }} >
-      <OrbitControls> </OrbitControls>
-      <ambientLight /> 
-      <pointLight position={[0,10,0]}></pointLight> 
-      <Scene />
-      <Stats />
-      <DragControls />
-    </Canvas>
-)};
-
-const handleExport = (glbModelUrl,comp) => {
-  fetch(glbModelUrl)
-      .then(response => response.blob())
-      .then(blob => {
-          // GLB model as a Blob
-          console.log("Size of",comp ,"GLB model:", blob.size, "bytes");
-        
-      })
-      .catch(error => {
-          console.error('Error fetching GLB model:', error);
-        });
-};
+export default App;
